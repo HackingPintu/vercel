@@ -13,6 +13,7 @@ with open('scaler.pkl', 'rb') as f:
 app = FastAPI()
 
 @app.get("/")
+@app.head("/")
 async def read_root():
     return {"message": "Hello from FastAPI!"}
 
