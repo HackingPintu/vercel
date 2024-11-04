@@ -20,12 +20,13 @@ async def read_root():
 class PredictRequest(BaseModel):
     entity_id: int
     lang_id: int
-    certifications: List[int]
 
 @app.post("/predict")
 async def predict_rate(request: PredictRequest):
     results = []
-    for cert in request.certifications:
+    df=pd.read_excel("j2.xlsx",engine="openpyxl")
+    certification=df['certificate'].unique()
+    for cert in certifications:
         data = pd.DataFrame({'entity_id': [request.entity_id], 'certificate': [cert], 'lang_id': [request.lang_id]})
         data_scaled = scaler.transform(data)
         pred = best_model.predict(data_scaled)
